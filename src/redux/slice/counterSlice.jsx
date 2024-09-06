@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // Define the initial state
 const initialState = {
-    count: 0,
+    count: 3,
     test: 1
 };
 
@@ -19,7 +19,7 @@ const counterSlice = createSlice({
             state.count -= 1;
         },
         reset: (state) => {
-            state.count = 0;
+            state.count = initialState.count;
         },
         add: (state, action) => {
             state.count += action.payload;
@@ -29,6 +29,7 @@ const counterSlice = createSlice({
         }
     }
 });
+
 
 // Export the actions
 export const { increment, decrement, reset, add, addTest } = counterSlice.actions;

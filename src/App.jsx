@@ -2,30 +2,30 @@ import React, { useState } from 'react';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  increment,
-  decrement,
-  reset,
-  add,
-  addTest
-} from './redux/slice/counterSlice';  // Import actions from the slice
+  addTodo,
+  removeTodo,
+  reset
+} from './redux/slice/todoSlice';  // Import actions from the slice
 
 function App() {
-  const count = useSelector((state) => state.counter.count);
-  const test = useSelector((state) => state.counter.test);
+  const todos = useSelector((state) => state.todos);
+
   const dispatch = useDispatch();
-  const [input, setinput] = useState(2);
+  const [input, setinput] = useState("");
   return (
     <div>
-      <h1>Counter: {count}</h1>
-      <h1>Test: {test}</h1>
-      <button onClick={() => dispatch(increment())}>Increment</button>
-      <button onClick={() => dispatch(decrement())}>Decrement</button>
-      <button onClick={() => dispatch(reset())}>Reset</button>
-      <input type="number" value={input} onChange={(e) => setinput(e.target.value)}></input>
-      <button onClick={() => dispatch(add(Number(input)))}>Add</button>
-      <button onClick={() => dispatch(addTest(Number(input)))}>Add test</button>
-
-
+      <input type="text" value={input} onChange={(e) => setinput(e.target.value)} />
+      <button onClick={() => dispatch(addTodo(input))}>Add Todo</button>
+      <br />
+      <button onClick={() => dispatch(reset())}> reset</button>
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>
+            {todo}
+            <button onClick={() => dispatch(removeTodo(index))}>Remove</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
